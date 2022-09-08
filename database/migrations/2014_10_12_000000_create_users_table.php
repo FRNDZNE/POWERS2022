@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('kontak',15)->nullable();
             $table->string('nim',10)->nullable();
             $table->char('semester')->nullable();
-            $table->foreign('jurusan_id')->constrained()->nullable();
-            $table->foreign('prodi_id')->constrained()->nullable();
+            $table->foreignId('jurusan_id')->references('id')->on('jurusans')->onDelete('cascade')->nullable();
+            $table->foreignId('prodi_id')->references('id')->on('prodis')->onDelete('cascade')->nullable();
             $table->char('angkatan')->nullable();
             $table->text('reason')->nullable();
             $table->string('foto')->nullable();

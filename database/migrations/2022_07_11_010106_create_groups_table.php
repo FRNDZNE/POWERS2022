@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('link');
             $table->foreignId('mentor_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('mentee_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

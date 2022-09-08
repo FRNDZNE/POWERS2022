@@ -1,6 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\NewRangerController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\JurusanController;
+use App\Http\Controllers\Backend\ProdiController;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +26,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+@include('backend.php');
+@include('frontend.php');

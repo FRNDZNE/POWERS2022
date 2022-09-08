@@ -23,6 +23,18 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'foto',
+        'jurusan_id',
+        'prodi_id',
+        'gender',
+        'tmp_lahir',
+        'tgl_lahir',
+        'alamat',
+        'kontak',
+        'angkatan',
+        'semester',
+        'reason',
+        'nim',
     ];
 
     /**
@@ -43,4 +55,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo('App\Models\Jurusan');
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo('App\Models\Prodi');
+    }
+
+    public function mentor()
+    {
+        return $this->hasMany('App\Models\Group');
+    }
+
+    public function mentee()
+    {
+        return $this->hasMany('App\Models\Group');
+    }
+
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function permission()
+    {
+        return $this->belongsToMany('App\Models\Permission');
+    }
+
+    public function absen()
+    {
+        return $this->hasMany('App\Models\Absensi');
+    }
+
+
 }

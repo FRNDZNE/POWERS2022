@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Image;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -52,7 +53,19 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'nim' => ['required','min:10'],
+            'gender' => ['required'],
+            'tmp_lahir' => ['required'],
+            'tgl_lahir' => ['required'],
+            'alamat' => ['required'],
+            'kontak' => ['required'],
+            'angkatan' => ['required'],
+            'semester' => ['required'],
+            'jurusan_id' => ['required'],
+            'prodi_id' => ['required'],
+            'reason' => ['required'],
+            'foto' => ['required']
         ]);
     }
 
@@ -64,10 +77,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $foto = "uploads/profiles/" . md5(date('dmyhis')) . '.jpg';
+        Image::make($data['foto'])->encode('jpg',100)->orientate()->resize(1024, null, function ($constraint){
+            $constraint->upsize();
+            $constraint->aspectRatio();
+        })->save($foto);
+        $newranger = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'nim' => $data['nim'],
+            'gender' => $data['gender'],
+            'tmp_lahir' => $data['tmp_lahir'],
+            'tgl_lahir' => $data['tgl_lahir'],
+            'jurusan_id' => $data['jurusan_id'],
+            'prodi_id' => $data['prodi_id'],
+            'angkatan' => $data['angkatan'],
+            'semester' => $data['semester'],
+            'kontak' => $data['kontak'],
+            'alamat' => $data['alamat'],
+            'reason' => $data['reason'],
+            // Upload foto profile
+            'foto' => $foto
         ]);
+        $newranger->attachRole('new');
+        $newranger->attachPermission('no');
+        return $newranger;
     }
 }

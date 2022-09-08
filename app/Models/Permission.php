@@ -7,4 +7,9 @@ use Laratrust\Models\LaratrustPermission;
 class Permission extends LaratrustPermission
 {
     public $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsToMany('App\Models\User');
+    }
 }
