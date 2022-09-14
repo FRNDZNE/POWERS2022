@@ -132,7 +132,7 @@
                                 <div class="form-group row m-b-20">
                                     <div class="col-12">
                                         <label for="emailaddress">Email</label>
-                                        <input class="form-control" type="email" id="emailaddress" placeholder="hafizputra@powers.com" name="email">
+                                        <input class="form-control" type="email" id="emailaddress" placeholder="Masukan email" name="email">
                                     </div>
                                 </div>
                                 {{-- End Email --}}

@@ -2,7 +2,7 @@
     <div class="slimscroll-menu" id="remove-scroll">
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="index.html" class="logo">
+            <a href="{{url('/')}}" class="logo">
                 <span>
                     <img src="{{asset('/')}}/background/logo.svg" alt="" height="50">
                 </span>
@@ -16,9 +16,9 @@
         <div class="user-box">
             <div class="user-img">
                 @if (Auth::user()->foto == null)
-                    <img src="{{asset('/')}}/template/backend/vertical/assets/images/users/avatar-1.jpg" alt="user-img" title="{{Auth::user()->name}}" class="rounded-circle img-fluid"> 
+                    <img src="{{asset('/')}}/static/avatar.jpg" alt="user-img" title="{{Auth::user()->name}}" class="rounded-circle img-fluid"> 
                 @else
-                    <img src="{{asset('/')}}/uploads/profiles/{{Auth::user()->foto}}" alt="foto rusak" title="{{Auth::user()->name}}" class="" style="width:300px;height:300px;object-fit: none;">
+                    <img src="{{asset(Auth::user()->foto)}}" alt="foto rusak" title="{{Auth::user()->name}}" class="rounded-circle img-fluid" style="width:48px;height:48px;">
                 @endif
             </div>
             <h5><a href="#">{{ Auth::user()->name }}</a> </h5>
@@ -29,9 +29,9 @@
         <div class="user-box">
             <div class="user-img">
                 @if (Auth::user()->foto == null)
-                    <img src="{{asset('/')}}/template/backend/vertical/assets/images/users/avatar-1.jpg" alt="user-img" title="{{Auth::user()->name}}" class="rounded-circle img-fluid"> 
+                    <img src="{{asset('/')}}/static/avatar.jpg" alt="user-img" title="{{Auth::user()->name}}" class="rounded-circle img-fluid"> 
                 @else
-                    <img src="{{asset(Auth::user()->foto)}}" alt="foto rusak" title="{{Auth::user()->name}}" class="rounded-circle" style="width:48px;height:48px;">
+                    <img src="{{asset(Auth::user()->foto)}}" alt="foto rusak" title="{{Auth::user()->name}}" class="rounded-circle img-fluid"  style="width:48px;height:48px;">
                 @endif
             </div>
             <h5><a href="#">{{ Auth::user()->name }}</a> </h5>
@@ -47,7 +47,7 @@
             @role('admin')
             <ul class="metismenu" id="side-menu">
                 <li>
-                    <a href="{{route('dashboard')}}">
+                    <a href="{{route('index.dashboard.admin')}}">
                         <i class="fa fa-dashboard"></i><span> Dashboard </span>
                     </a>
                 </li>
@@ -55,24 +55,24 @@
                 <li>
                     <a href="javascript: void(0);"><i class="fa fa-users"></i><span> Committe </span> <span class="menu-arrow"></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="#">Core</a></li>
-                        <li><a href="#">Public Relation</a></li>
-                        <li><a href="#">Education</a></li>
-                        <li><a href="#">Event Organizer</a></li>
-                        <li><a href="#">Member Development</a></li>
+                        <li><a href="{{route('index.user.core')}}">Core</a></li>
+                        <li><a href="{{route('index.user.pr')}}">Public Relation</a></li>
+                        <li><a href="{{route('index.user.edu')}}">Education</a></li>
+                        <li><a href="{{route('index.user.eo')}}">Event Organizer</a></li>
+                        <li><a href="{{route('index.user.mdd')}}">Member Development</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-user"></i> <span> Rangers </span></a>
+                    <a href="{{route('index.user.ranger')}}"><i class="fa fa-user"></i> <span> Rangers </span></a>
                 </li>
                 <li>
                     <a href="javascript: void(0);"><i class="fa fa-child"></i> <span> New Rangers <span class="menu-arrow"></span></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
-                        <li><a href="{{route('accnewranger')}}"><i class="icon icon-user-following"></i> Diterima</a></li>
-                        <li><a href="layouts-small-menu.html"><i class="icon icon-user-unfollow"></i> Belum Diterima</a></li>
+                        <li><a href="{{route('index.user.new.yes')}}"><i class="icon icon-user-following"></i> Diterima</a></li>
+                        <li><a href="{{route('index.user.new.no')}}"><i class="icon icon-user-unfollow"></i> Belum Diterima</a></li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="javascript: void(0);"><i class="fi-layout"></i><span> Absensi </span> <span class="menu-arrow"></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
                         <li><a href="layouts-menucollapsed.html">Menu Collapsed</a></li>
@@ -80,8 +80,8 @@
                         <li><a href="layouts-dark-lefbar.html">Dark Leftbar</a></li>
                         <li><a href="layouts-center-logo.html">Center Logo</a></li>
                     </ul>
-                </li>
-                <li class="menu-title">Article            
+                </li> --}}
+                {{-- <li class="menu-title">Article            
                 </li>
                 <li>
                     <a href="javascript: void(0);"><i class="fi-briefcase"></i> <span> UI Elements </span> <span class="menu-arrow"></span></a>
@@ -139,7 +139,7 @@
                         <li><a href="tables-tablesaw.html">Tablesaw Tables</a></li>
                         <li><a href="tables-foo.html">Foo Tables</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="menu-title">Managemen</li>
                 <li>
                     <a href="{{route('index.user')}}"><i class="fa fa-user-secret"></i> <span> User </span></a>
@@ -147,6 +147,34 @@
                 <li>
                     <a href="{{route('index.jurusan')}}"><i class="mdi mdi-database-plus"></i> <span> Jurusan dan Prodi </span></a>
                 </li>    
+            </ul>
+            @endrole
+            @role(['core','commitee'])
+            <ul class="metismenu" id="side-menu">
+                <li>
+                    <a href="{{route('index.dashboard.commitee')}}">
+                        <i class="fa fa-dashboard"></i><span> Dashboard </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('detail.user.commitee',Auth::user()->id)}}">
+                        <i class="fa fa-dashboard"></i><span> Profile </span>
+                    </a>
+                </li>
+            </ul>
+            @endrole
+            @role(['ranger','new'])
+            <ul class="metismenu" id="side-menu">
+                <li>
+                    <a href="{{route('index.dashboard.ranger')}}">
+                        <i class="fa fa-dashboard"></i><span> Dashboard </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('detail.user.ranger',Auth::user()->id)}}">
+                        <i class="fa fa-dashboard"></i><span> Profile </span>
+                    </a>
+                </li>
             </ul>
             @endrole
         </div>

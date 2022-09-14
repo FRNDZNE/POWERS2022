@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Prodi;
 use App\Models\Jurusan;
-use Illuminate\Support\Str;
 
 class ProdiController extends Controller
 {

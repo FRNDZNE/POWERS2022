@@ -39,7 +39,7 @@
                     </div>
                     <!-- End Modal -->
                     <hr>
-                    <table class="table">
+                    <table class="table table-striped table-bordered" id="datatable-buttons">
                         <thead>
                             <tr>
                                 <th>No</th>

@@ -19,6 +19,7 @@
                                 <th>Nama</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Kontak</th>
+                                <th>E-Mail</th>
                                 <th>Jurusan</th>
                                 <th>Status</th>
                                 <th>Approval</th>
@@ -39,6 +40,7 @@
                                     @endif
                                 </td>
                                 <td><a href="https://wa.me/{{$u->kontak}}" target="_blank">{{$u->kontak}}</a></td>
+                                <td>{{$u->email}}</td>
                                 <td>{{$u->jurusan->nama_jurusan}}</td>
                                 <td>
                                     @foreach ($u->role as $role)
@@ -54,9 +56,52 @@
                                         <a href="javascript: void(0);" class="table-action-btn dropdown-toogle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <a href="{{route('detail.user',$u->id)}}" class="dropdown-item">Lihat Data</a>
-                                            <a href="" class="dropdown-item">Edit Data</a>
-                                            <a href="" class="dropdown-item">Hapus Data</a>
-                                            <a href="" class="dropdown-item">Aktifkan Akun</a>
+                                            <a href="{{route('edit.user',$u->id)}}" class="dropdown-item">Edit Data</a>
+                                            {{-- Modal Delete --}}
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modaldelete-{{$u->id}}">
+                                                Hapus Akun
+                                            </button>
+                                            {{-- End Modal Delete --}}
+                                            @foreach ($u->permission as $permission)
+                                                @if ($permission->name == 'yes')
+                                                    <form action="{{route('nonaktif.user',$u->id)}}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item">Matikan User</button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{route('aktif.user',$u->id)}}" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item">Hidupkan User</button>
+                                                    </form>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                        <!-- Button trigger modal -->
+                                        
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modaldelete-{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title">Hapus Akun</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Ingin menghapus akun dengan nama {{$u->name}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <form action="{{route('destroy.user',$u->id)}}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>

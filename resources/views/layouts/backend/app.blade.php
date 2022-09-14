@@ -2,24 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Highdmin - Responsive Bootstrap 4 Admin Dashboard</title>
+        <title>Powers Web</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        {{-- <link rel="shortcut icon" href="{{asset('/')}}/template/backend/vertical/assets/images/favicon.ico"> --}}
+        {{-- <link rel="shortcut icon" href="{{asset('/')}}template/backend/vertical/assets/images/favicon.ico"> --}}
         <link rel="shortcut icon" type="image/x-icon" href="{{asset('/background/logo.png')}}/">
-
         @yield('css')
         <!-- App css -->
-        <link href="{{asset('/')}}/template/backend/vertical/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="{{asset('/')}}/template/backend/vertical/assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="{{asset('/')}}/template/backend/vertical/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
-        <link href="{{asset('/')}}/template/backend/vertical/assets/css/style.css" rel="stylesheet" type="text/css" />
-
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/modernizr.min.js"></script>
+        <link href="{{asset('/')}}template/backend/vertical/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/')}}template/backend/vertical/assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/')}}template/backend/vertical/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{asset('/')}}template/backend/vertical/assets/css/style.css" rel="stylesheet" type="text/css" />
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/modernizr.min.js"></script>
 
         
     </head>
@@ -43,34 +41,33 @@
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button"
                                    aria-haspopup="false" aria-expanded="false">
-                                    <img src="{{asset('/')}}/template/backend/vertical/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1">{{Auth::user()->name}}<i class="mdi mdi-chevron-down"></i> </span>
+                                    @if (Auth::user()->foto == null)
+                                        <img src="{{asset('/')}}/static/avatar.jpg" alt="user" class="rounded-circle"> <span class="ml-1">{{Auth::user()->name}}<i class="mdi mdi-chevron-down"></i> </span>
+                                    @else
+                                        <img src="{{asset(Auth::user()->foto)}}" alt="user" class="rounded-circle"> <span class="ml-1">{{Auth::user()->name}}<i class="mdi mdi-chevron-down"></i> </span>
+                                    @endif
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
                                     <!-- item-->
                                     <div class="dropdown-item noti-title">
                                         <h6 class="text-overflow m-0">Welcome !</h6>
                                     </div>
-
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    @role('admin')
+                                    <a href="{{route('edit.user',Auth::user()->id)}}" class="dropdown-item notify-item">
                                         <i class="fi-head"></i> <span>My Account</span>
                                     </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="fi-cog"></i> <span>Settings</span>
+                                    @endrole
+                                    @role(['ranger','new'])
+                                    <a href="{{route('edit.user.ranger',Auth::user()->id)}}" class="dropdown-item notify-item">
+                                        <i class="fi-head"></i> <span>My Account</span>
                                     </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="fi-help"></i> <span>Support</span>
+                                    @endrole
+                                    @role(['commitee','core'])
+                                    <a href="{{route('edit.user.commitee',Auth::user()->id)}}" class="dropdown-item notify-item">
+                                        <i class="fi-head"></i> <span>My Account</span>
                                     </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="fi-lock"></i> <span>Lock Screen</span>
-                                    </a>
-
+                                    @endrole
                                     <!-- item-->
                                     <a href="{{route('logout')}}" class="dropdown-item notify-item"
                                         onclick="event.preventDefault();document.getElementById('logout').submit()">
@@ -119,14 +116,13 @@
         </div>
         <!-- END wrapper -->
         @yield('jstop')
-        
         <!-- jQuery  -->
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.min.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/popper.min.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/bootstrap.min.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/metisMenu.min.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/waves.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.slimscroll.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/jquery.min.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/popper.min.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/bootstrap.min.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/metisMenu.min.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/waves.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/jquery.slimscroll.js"></script>
 
         <!-- Required datatable js -->
         <script src="{{asset('/')}}template/backend/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -149,6 +145,7 @@
 
         <!-- Selection table -->
         <script src="{{asset('/')}}template/backend/plugins/datatables/dataTables.select.min.js"></script>
+        
         @yield('jsmid')
 
         <script type="text/javascript">
@@ -185,31 +182,31 @@
 
         </script>
         <!-- App js -->
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.core.js"></script>
-        <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.app.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/jquery.core.js"></script>
+        <script src="{{asset('/')}}template/backend/vertical/assets/js/jquery.app.js"></script>
         @yield('jsbot')
         {{-- Alert --}}
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-    <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
-    @if (Session::has('success'))
-    <script>
-        Swal.fire({
-        title: 'Success',
-        text: '{{Session::get('success')}}',
-        icon: 'success',
-        confirmButtonText: 'OK'
-        })
-    </script>
-    @elseif(Session::has('error'))
-    <script>
-        Swal.fire({
-        title: 'Error',
-        text: '{{Session::get('error')}}',
-        icon: 'error',
-        confirmButtonText: 'OK'
-        })
-    </script>
-    @endif
+        <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+        <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+        @if (Session::has('success'))
+        <script>
+            Swal.fire({
+            title: 'Success',
+            text: '{{Session::get('success')}}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+            })
+        </script>
+        @elseif(Session::has('error'))
+        <script>
+            Swal.fire({
+            title: 'Error',
+            text: '{{Session::get('error')}}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+            })
+        </script>
+        @endif
     </body>
 </html>

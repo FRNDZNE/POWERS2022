@@ -1,15 +1,30 @@
 <?php
 
 Route::middleware(['auth','role:admin','permission:yes'])->prefix('admin')->group(function(){
-    Route::get('/dashboard', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/datanewrangeracc', [App\Http\Controllers\Backend\NewRangerController::class, 'index_acc'])->name('accnewranger');
+    Route::get('/dashboard', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->name('index.dashboard.admin');
 
     // CRUD User Universal
     Route::get('/user',[App\Http\Controllers\Backend\UserController::class, 'index'])->name('index.user');
     Route::get('user/createuser',[App\Http\Controllers\Backend\UserController::class, 'create'])->name('create.user');
     Route::post('user/storeuser',[App\Http\Controllers\Backend\UserController::class, 'store'])->name('store.user'); 
     Route::get('user/edituser/{id}',[App\Http\Controllers\Backend\UserController::class, 'edit'])->name('edit.user');
+    Route::post('/user/updateuser/{id}',[App\Http\Controllers\Backend\UserController::class, 'update'])->name('update.user');
     Route::get('user/detail/{id}',[App\Http\Controllers\Backend\UserController::class, 'detail'])->name('detail.user');
+    Route::post('user/destroy/{id}',[App\Http\Controllers\Backend\UserController::class, 'destroy'])->name('destroy.user');
+    Route::post('/user/aktif/{id}',[App\Http\Controllers\Backend\UserController::class, 'aktifkan'])->name('aktif.user');
+    Route::post('/user/nonaktif/{id}',[App\Http\Controllers\Backend\UserController::class, 'nonaktifkan'])->name('nonaktif.user');
+
+    // Index User Per bidang
+    Route::get('/user/core',[App\Http\Controllers\Backend\UserController::class, 'index_core'])->name('index.user.core');
+    Route::get('/user/education',[App\Http\Controllers\Backend\UserController::class, 'index_edu'])->name('index.user.edu');
+    Route::get('/user/publicrelation',[App\Http\Controllers\Backend\UserController::class, 'index_pr'])->name('index.user.pr');
+    Route::get('/user/eventorganizer',[App\Http\Controllers\Backend\UserController::class, 'index_eo'])->name('index.user.eo');
+    Route::get('/user/memberdevelopment',[App\Http\Controllers\Backend\UserController::class, 'index_mdd'])->name('index.user.mdd');
+    Route::get('/user/ranger',[App\Http\Controllers\Backend\UserController::class, 'index_ranger'])->name('index.user.ranger');
+    Route::get('/user/newrangernotacc',[App\Http\Controllers\Backend\UserController::class, 'index_new_no'])->name('index.user.new.no');
+    Route::get('/user/newrangeracc',[App\Http\Controllers\Backend\UserController::class, 'index_new_yes'])->name('index.user.new.yes');
+    
+    
 
     // Jurusan dan Prodi User
     // Jurusan
@@ -28,10 +43,24 @@ Route::middleware(['auth','role:admin','permission:yes'])->prefix('admin')->grou
     // Select Box yang sifatnya universal bisa di akses semua ROLE
     Route::get('/jurusan/{jurusan}',[App\Http\Controllers\Backend\ProdiController::class, 'jurusan_prodi'])->name('prodi');
 
-// Routing New Ranger have a permission NO
-Route::middleware(['auth','role:new','permission:no'])->prefix('newranger')->group(function(){
+// Routing New Ranger and Ranger
+Route::middleware(['auth','role:new|ranger'])->prefix('ranger')->group(function(){
+    Route::get('/dashboard',[App\Http\Controllers\Backend\DashboardController::class,'index'])->name('index.dashboard.ranger');
+    Route::get('/user/edituser/{id}',[App\Http\Controllers\Backend\UserController::class, 'edit'])->name('edit.user.ranger');
+    Route::get('user/detail/{id}',[App\Http\Controllers\Backend\UserController::class, 'detail'])->name('detail.user.ranger');
+    Route::post('/user/updateuser/{id}',[App\Http\Controllers\Backend\UserController::class, 'update_profile'])->name('update.user.ranger');
 
 });
+
+// Routing Core and Commitee
+Route::middleware(['auth','role:core|commitee'])->prefix('commitee')->group(function(){
+    Route::get('/dashboard',[App\Http\Controllers\Backend\DashboardController::class,'index'])->name('index.dashboard.commitee');
+    Route::get('/user/edituser/{id}',[App\Http\Controllers\Backend\UserController::class, 'edit'])->name('edit.user.commitee');
+    Route::get('user/detail/{id}',[App\Http\Controllers\Backend\UserController::class, 'detail'])->name('detail.user.commitee');
+    Route::post('/user/updateuser/{id}',[App\Http\Controllers\Backend\UserController::class, 'update_profile'])->name('update.user.commitee');
+
+});
+
 
 
 

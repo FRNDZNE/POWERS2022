@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\NewRangerController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\JurusanController;
 use App\Http\Controllers\Backend\ProdiController;
+use App\Http\Controllers\Frontend\LandingController;
 
 
 
@@ -22,10 +23,20 @@ use App\Http\Controllers\Backend\ProdiController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('layouts.frontend.app');
+// });
 
+
+Route::get('/dashboard', function(){
+    if (Auth::user()->hasRole('admin')) {
+        return redirect()->route('index.dashboard.admin')->with('success','Selamat Datang '. Auth::user()->name);
+    } elseif (Auth::user()->hasRole(['core','commitee'])) {
+        return redirect()->route('index.dashboard.commitee')->with('success','Selamat Datang '. Auth::user()->name);
+    } elseif (Auth::user()->hasRole(['ranger','new'])) {
+        return redirect()->route('index.dashboard.ranger')->with('success','Selamat Datang '. Auth::user()->name);
+    }
+});
 
 Auth::routes();
 

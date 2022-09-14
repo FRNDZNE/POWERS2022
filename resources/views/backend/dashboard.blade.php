@@ -4,5 +4,6 @@
 @section('content')
     <div class="card-box">
         <h4>Welcomes</h4>
+        <p></p>
     </div>
 @endsection
