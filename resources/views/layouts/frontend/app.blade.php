@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('/')}}template/frontend/assets/css/bootstrap.min.css">
         <!-- font-awesome css -->
         <link rel="stylesheet" type="text/css" href="{{asset('/')}}template/frontend/assets/css/font-awesome.min.css">
-        <!-- animate css -->
+        <!-- animate css -->    
         <link rel="stylesheet" type="text/css" href="{{asset('/')}}template/frontend/assets/css/animate.css">
         <!-- owl.carousel css -->
         <link rel="stylesheet" type="text/css" href="{{asset('/')}}template/frontend/assets/css/owl.carousel.css">
