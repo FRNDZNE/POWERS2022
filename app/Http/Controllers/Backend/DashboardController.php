@@ -12,11 +12,11 @@ class DashboardController extends Controller
     public function index()
     {
         // return 'Halaman Dashboard';
-        $user = User::where('id', Auth::user()->id)->with([
-            'jurusan','prodi','role','permission'
+        $data['user'] = User::where('id', Auth::user()->id)->with([
+            'jurusan','prodi','role','permission','group'
         ])->first();
         // return $user;
-        return view('backend.dashboard',compact('user'));
+        return view('backend.dashboard',compact('data'));
     }
 
     

@@ -1,2 +1,2 @@
 <?php
-Route::get('/',[App\Http\Controllers\Frontend\LandingController::class, 'index'])->name('index.landing');
+Route::get('/',[App\Http\Controllers\FrontEnd\LandingController::class, 'index'])->name('index.landing');

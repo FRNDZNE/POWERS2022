@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('link');
-            $table->foreignId('mentor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('mentee_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->foreignId('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('group_user');
     }
 };

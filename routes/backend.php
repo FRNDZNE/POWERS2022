@@ -39,6 +39,14 @@ Route::middleware(['auth','role:admin','permission:yes'])->prefix('admin')->grou
     Route::post('/jurusan/{jurusan}/update',[App\Http\Controllers\Backend\ProdiController::class, 'update'])->name('update.prodi');
     Route::post('/jurusan/{jurusan}/delete/{id}',[App\Http\Controllers\Backend\ProdiController::class, 'destroy'])->name('destroy.prodi');
 
+    // Group for mentor and mentee
+    Route::get('/group',[App\Http\Controllers\Backend\GroupController::class, 'index'])->name('index.group');
+    Route::post('/group/store', [App\Http\Controllers\Backend\GroupController::class, 'store'])->name('store.group');
+    Route::post('/group/update', [App\Http\Controllers\Backend\GroupController::class, 'update'])->name('update.group');
+    Route::post('/group/destroy/{id}', [App\Http\Controllers\Backend\GroupController::class, 'destroy'])->name('destroy.group');
+    Route::get('/group/{id}',[App\Http\Controllers\Backend\GroupController::class, 'index_member'])->name('index.member.group');
+    Route::post('group/{id}/storemember',[App\Http\Controllers\Backend\GroupController::class,'store_member'])->name('store.member.group');
+    Route::post('/group/{id}/destroy/{member}',[App\Http\Controllers\Backend\GroupController::class,'destroy.member'])->name('destroy.member.group');
 });
     // Select Box yang sifatnya universal bisa di akses semua ROLE
     Route::get('/jurusan/{jurusan}',[App\Http\Controllers\Backend\ProdiController::class, 'jurusan_prodi'])->name('prodi');

@@ -52,7 +52,6 @@ class UserController extends Controller
             'permission', fn($q) => $q->where('name','yes')
         )->get();
         return view('backend.user.index',compact('user'));
-
     }
 
     // Show Public Relation Division

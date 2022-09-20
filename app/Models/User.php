@@ -66,16 +66,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Prodi');
     }
 
-    public function mentor()
-    {
-        return $this->hasMany('App\Models\Group');
-    }
-
-    public function mentee()
-    {
-        return $this->hasMany('App\Models\Group');
-    }
-
     public function role()
     {
         return $this->belongsToMany('App\Models\Role');
@@ -86,9 +76,9 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Permission');
     }
 
-    public function absen()
+    public function group()
     {
-        return $this->hasMany('App\Models\Absensi');
+        return $this->belongsToMany('App\Models\Group');
     }
 
 

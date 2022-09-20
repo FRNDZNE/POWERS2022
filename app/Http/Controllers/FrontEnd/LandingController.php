@@ -9,6 +9,7 @@ class LandingController extends Controller
 {
     public function index()
     {
+        // return 'test';
         return view('layouts.frontend.app');
     }
 }

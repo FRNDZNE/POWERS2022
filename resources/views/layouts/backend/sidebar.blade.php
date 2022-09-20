@@ -146,7 +146,10 @@
                 </li>
                 <li>
                     <a href="{{route('index.jurusan')}}"><i class="mdi mdi-database-plus"></i> <span> Jurusan dan Prodi </span></a>
-                </li>    
+                </li>
+                <li>
+                    <a href="{{route('index.group')}}"><i class="mdi mdi-database-plus"></i> <span> Group </span></a>
+                </li>
             </ul>
             @endrole
             @role(['core','commitee'])

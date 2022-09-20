@@ -43,14 +43,14 @@
                                 <div class="form-group m-b-20 row">
                                     <div class="col-12">
                                         <label for="emailaddress">Email address</label>
-                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Masukan Email" name="email">
+                                        <input class="form-control" type="email" id="emailaddress"  placeholder="Masukan Email" name="email" @error('name') is-invalid @enderror>
                                     </div>
                                 </div>
                                 <div class="form-group row m-b-20">
                                     <div class="col-12">
                                         <a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>
                                         <label for="password">Password</label>
-                                        <input class="form-control" type="password" required="" id="password" placeholder="Masukan Password" name="password">
+                                        <input class="form-control" type="password"  id="password" placeholder="Masukan Password" name="password" @error('password') is-invalid @enderror>
                                     </div>
                                 </div>
                                 <div class="form-group row m-b-20">
@@ -93,6 +93,28 @@
         <!-- App js -->
         <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.core.js"></script>
         <script src="{{asset('/')}}/template/backend/vertical/assets/js/jquery.app.js"></script>
-
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+        <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+        @error('email')
+        <script>
+            Swal.fire({
+            title: 'Error',
+            text: '{{$message}}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+            })
+        </script>
+        @enderror
+        @error('password')
+        <script>
+            Swal.fire({
+            title: 'Error',
+            text: '{{$message}}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+            })
+        </script>
+        @enderror
     </body>
 </html>
