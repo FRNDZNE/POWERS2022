@@ -13,9 +13,8 @@ class DashboardController extends Controller
     {
         // return 'Halaman Dashboard';
         $data['user'] = User::where('id', Auth::user()->id)->with([
-            'jurusan','prodi','role','permission','group'
+            'jurusan','prodi','role','permission','group.mentor'
         ])->first();
-        // return $user;
         return view('backend.dashboard',compact('data'));
     }
 

@@ -43,7 +43,29 @@ class GroupController extends Controller
         $data['group'] = Group::with([
             'mentor','mentee'
         ])->where('id',$id)->first();
+        
+        $data['mentoredu'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','edu')
+        )->get();
 
+        $data['mentorpr'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','pr')
+        )->get();
+
+        $data['mentoreo'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','eo')
+        )->get();
+
+        $data['mentormdd'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','mdd')
+        )->get();
+
+        $data['mentorranger'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','ranger')
+        )->get();
+
+        // $data['mentee'] = User::with('role')->whereHas
+        // return $data['mentor'];
         // $mentor = User::with('mentor')->get();
         // return $mentor;
         return view('backend.data.groupuser',compact('data'));
@@ -52,9 +74,14 @@ class GroupController extends Controller
     public function store_member(Request $request, $id)
     {
         $group = Group::find($id);
-        // $group->user()->attach($request->id);
+
+        foreach ($group->user as $user) {
+            # code...
+            $user->attach($request->id);
+        }
         
-        return $group;
+
+        return back();
 
     }
 

@@ -10,6 +10,16 @@
                     {{ $group->nama }}
                 @endforeach
             </h3>
+            <h5>Kamu di mentori oleh :
+                @foreach ($data['user']->group as $group)
+                    @foreach ($group->mentor as $mentor)
+                    <p>
+                       - {{ $mentor->name }}
+                    </p>
+                    @endforeach
+                @endforeach
+                
+                </h5>
             <p>Silahkan masuk ke dalam group whatsapp yang telah di sediakan</p>
             <p>
                 @foreach ($data['user']->group as $group)
