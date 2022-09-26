@@ -23,7 +23,7 @@
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('store.member.group',$data['group']->id) }}" method="post">
+                                    <form action="{{ route('store.member.mentor.group',$data['group']->id) }}" method="post">
                                         @csrf
                                         {{-- Mentor Edu --}}
                                         <div class="row">
@@ -138,12 +138,12 @@
                                     
                                     {{-- Delete Mentor--}}
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete-{{ $mentor->id }}">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                       
                                       <!-- Modal -->
-                                      <div class="modal fade" id="modelDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                      <div class="modal fade" id="modalDelete-{{ $mentor->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                               <div class="modal-content">
                                                   <div class="modal-header bg-danger">
@@ -153,10 +153,10 @@
                                                           </button>
                                                   </div>
                                                   <div class="modal-body">
-                                                      <p>Ingin Menghapus Mentor </p>
+                                                      <p>Ingin Menghapus {{ $mentor->name }} sebagai mentor</p>
                                                       <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="" method="post">
+                                                        <form action="{{ route('destroy.member.mentor.group',[$data['group']->id,$mentor->id]) }}" method="post">
                                                             @csrf
                                                             <button type="submit" class="btn btn-danger">Delete</button>
                                                         </form>
@@ -165,7 +165,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                    {{-- End Delete Jurusan --}}
+                                    {{-- End Delete Mentor --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -186,7 +186,7 @@
                     
                     <!-- Modal -->
                     <div class="modal fade" id="mentee" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header bg-primary">
                                     <h5 class="modal-title">Tambah Mentee</h5>
@@ -195,7 +195,7 @@
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="" method="post">
+                                    <form action="{{ route('store.member.mentee.group',$data['group']->id) }}" method="post">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
@@ -203,14 +203,14 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            {{-- @foreach ($data['mentee'] as $mentor)
+                                            @foreach ($data['mentee'] as $mentee)
                                             <div class="col-md-3">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="mentor-{{ $mentor->id }}" value="{{ $mentor->id }}" name="id">
-                                                    <label class="custom-control-label" for="mentor-{{ $mentor->id }}">{{ $mentor->name }}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="mentee-{{ $mentee->id }}" value="{{ $mentee->id }}" name="id[]">
+                                                    <label class="custom-control-label" for="mentee-{{ $mentee->id }}">{{ $mentee->name }}</label>
                                                 </div>
                                             </div>
-                                            @endforeach --}}
+                                            @endforeach
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -234,51 +234,18 @@
                         <tbody>
                             @foreach ($data['group']->mentee as $mentee)
                             <tr>
-                                <td scope="row"></td>
+                                <td scope="row">{{ $loop->iteration }}</td>
                                 <td>{{ $mentee->name }}</td>
                                 <td>
-                                    {{-- Modal Edit Jurusan --}}
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modelEdit">
-                                      <i class="fa fa-edit"></i>
-                                    </button>
                                     
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="modelEdit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header bg-warning">
-                                                    <h5 class="modal-title">Edit Jurusan</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="id" value="">
-                                                        <div class="form-group">
-                                                            <label for="jurusan">Nama Jurusan</label>
-                                                            <input type="text" name="jurusan" id="jurusan" class="form-control" value="">
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-warning">Update</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- End Modal Edit Jurusan --}}
                                     {{-- Delete Jurusan --}}
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modelDelete-{{ $mentee->id }}">
                                         <i class="fa fa-trash"></i>
                                       </button>
                                       
                                       <!-- Modal -->
-                                      <div class="modal fade" id="modelDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                      <div class="modal fade" id="modelDelete-{{ $mentee->id }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                               <div class="modal-content">
                                                   <div class="modal-header bg-danger">
@@ -288,10 +255,10 @@
                                                           </button>
                                                   </div>
                                                   <div class="modal-body">
-                                                      <p>Ingin Menghapus Jurusan </p>
+                                                      <p>Ingin Menghapus {{ $mentee->name }} sebagai mentee</p>
                                                       <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="" method="post">
+                                                        <form action="{{ route('destroy.member.mentee.group',[$data['group']->id,$mentee->id]) }}" method="post">
                                                             @csrf
                                                             <button type="submit" class="btn btn-danger">Delete</button>
                                                         </form>

@@ -64,6 +64,9 @@ class GroupController extends Controller
             'role', fn($q) => $q->where('name','ranger')
         )->get();
 
+        $data['mentee'] = User::with('role')->whereHas(
+            'role', fn($q) => $q->where('name','new')
+        )->get();
         // $data['mentee'] = User::with('role')->whereHas
         // return $data['mentor'];
         // $mentor = User::with('mentor')->get();
@@ -71,18 +74,50 @@ class GroupController extends Controller
         return view('backend.data.groupuser',compact('data'));
     }
 
-    public function store_member(Request $request, $id)
+    public function store_member_mentor(Request $request, $id)
     {
         $group = Group::find($id);
 
-        foreach ($group->user as $user) {
-            # code...
-            $user->attach($request->id);
-        }
         
+        // $group->mentor()->attach($request->id);
+        foreach ($request->id as $id) {
+            # code...
+            $group->mentor()->attach($id);
+        }
+        // return $group->mentor;
+        return back()->with('success','Berhasil Menambah Mentor');
 
-        return back();
+    }
 
+    public function store_member_mentee(Request $request, $id)
+    {
+        $group = Group::find($id);
+
+        
+        // $group->mentor()->attach($request->id);
+        foreach ($request->id as $id) {
+            # code...
+            $group->mentee()->attach($id);
+        }
+        // return $group->mentor;
+        return back()->with('success','Berhasil Menambah Mentee');
+
+    }
+
+    public function destroy_member_mentor(Request $request, $id, $mentor)
+    {
+        $group = Group::find($id);
+        $group->mentor()->detach($mentor);
+        return back()->with('success','Berhasil Menghapus Mentor');
+        
+    }
+
+    public function destroy_member_mentee(Request $request, $id, $mentee)
+    {
+        $group = Group::find($id);
+        $group->mentee()->detach($mentee);
+        return back()->with('success','Berhasil Menghapus Mentee');
+        
     }
 
 }
