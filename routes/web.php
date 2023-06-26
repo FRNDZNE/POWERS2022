@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\JurusanController;
 use App\Http\Controllers\Backend\ProdiController;
 use App\Http\Controllers\Frontend\LandingController;
 use App\Http\Controllers\Backend\GroupController;
+use App\Http\Controllers\Backend\RoleController;
 
 
 

@@ -55,6 +55,7 @@
                 <li>
                     <a href="javascript: void(0);"><i class="fa fa-users"></i><span> Committe </span> <span class="menu-arrow"></span></a>
                     <ul class="nav-second-level" aria-expanded="false">
+                        <li><a href="{{route('index.user.demis')}}">Demisioner</a></li>
                         <li><a href="{{route('index.user.core')}}">Core</a></li>
                         <li><a href="{{route('index.user.pr')}}">Public Relation</a></li>
                         <li><a href="{{route('index.user.edu')}}">Education</a></li>
@@ -148,7 +149,10 @@
                     <a href="{{route('index.jurusan')}}"><i class="mdi mdi-database-plus"></i> <span> Jurusan dan Prodi </span></a>
                 </li>
                 <li>
-                    <a href="{{route('index.group')}}"><i class="mdi mdi-database-plus"></i> <span> Group </span></a>
+                    <a href="{{route('index.group')}}"><i class="fa fa-handshake-o"></i> <span> Group </span></a>
+                </li>
+                <li>
+                    <a href="{{route('index.role')}}"><i class="fa fa-bar-chart-o"></i> <span> Role </span></a>
                 </li>
             </ul>
             @endrole

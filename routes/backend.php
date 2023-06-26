@@ -15,6 +15,7 @@ Route::middleware(['auth','role:admin','permission:yes'])->prefix('admin')->grou
     Route::post('/user/nonaktif/{id}',[App\Http\Controllers\Backend\UserController::class, 'nonaktifkan'])->name('nonaktif.user');
 
     // Index User Per bidang
+    Route::get('/user/demis',[App\Http\Controllers\Backend\UserController::class, 'index_demis'])->name('index.user.demis');
     Route::get('/user/core',[App\Http\Controllers\Backend\UserController::class, 'index_core'])->name('index.user.core');
     Route::get('/user/education',[App\Http\Controllers\Backend\UserController::class, 'index_edu'])->name('index.user.edu');
     Route::get('/user/publicrelation',[App\Http\Controllers\Backend\UserController::class, 'index_pr'])->name('index.user.pr');
@@ -49,6 +50,13 @@ Route::middleware(['auth','role:admin','permission:yes'])->prefix('admin')->grou
     Route::post('/group/{id}/storemembermentee',[App\Http\Controllers\Backend\GroupController::class,'store_member_mentee'])->name('store.member.mentee.group');
     Route::post('/group/{id}/destroy/{mentor}',[App\Http\Controllers\Backend\GroupController::class,'destroy_member_mentor'])->name('destroy.member.mentor.group');
     Route::post('/group/{id}/destroy/{mentee}',[App\Http\Controllers\Backend\GroupController::class,'destroy_member_mentee'])->name('destroy.member.mentee.group');
+
+    //CRUD Role
+    Route::get('/role',[App\Http\Controllers\Backend\RoleController::class,'index'])->name('index.role');
+    Route::post('/role/store',[App\Http\Controllers\Backend\RoleController::class,'store'])->name('store.role');
+    Route::post('/role/update',[App\Http\Controllers\Backend\RoleController::class,'update'])->name('update.role');
+    Route::post('/role/delete/{id}',[App\Http\Controllers\Backend\RoleController::class,'destroy'])->name('destroy.role');
+    
 });
     // Select Box yang sifatnya universal bisa di akses semua ROLE
     Route::get('/jurusan/{jurusan}',[App\Http\Controllers\Backend\ProdiController::class, 'jurusan_prodi'])->name('prodi');

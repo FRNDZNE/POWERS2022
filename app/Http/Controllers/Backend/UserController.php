@@ -115,6 +115,18 @@ class UserController extends Controller
 
     }
 
+    // Show Demisioner
+    public function index_demis()
+    {
+        $user = User::with([
+            'jurusan','prodi','role','permission'
+        ])->whereHas(
+            'role', fn($q) => $q->where('name','demis')
+        )->whereHas(
+            'permission', fn($q) => $q->where('name','yes')
+        )->get();
+        return view('backend.user.index',compact('user'));
+    }
     // Show Core
     public function index_core()
     {
@@ -180,6 +192,7 @@ class UserController extends Controller
         ])->where('id',$id)->first();
 
         return view('backend.user.detail',compact('user'));
+        // return $user;
     }
 
     // Page Edit User
